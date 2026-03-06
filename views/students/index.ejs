@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+
+    <h2 class="mb-3">Student Management</h2>
+
+    <% if (typeof error !== 'undefined') { %>
+  <div class="alert alert-danger">
+    <%= error %>
+  </div>
+<% } %>
+
+    <!-- Add Student Form -->
+    <form action="/view/students" method="POST" class="mb-4">
+        <div class="mb-2">
+            <input type="text" name="name" placeholder="Student Name" class="form-control" required>
+        </div>
+        <div class="mb-2">
+            <input type="number" name="roll" placeholder="Roll Number" class="form-control" required>
+        </div>
+        <button class="btn btn-primary">Add Student</button>
+    </form>
+
+    <!-- Students Table -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (students.length === 0) { %>
+                <tr>
+                    <td colspan="3" class="text-center">No students found</td>
+                </tr>
+            <% } %>
+
+            <% students.forEach(student => { %>
+                <tr>
+                    <td><%= student.name %></td>
+                    <td><%= student.roll %></td>
+                    <td>
+                        <a href="/view/students/edit/<%= student._id %>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/view/students/delete/<%= student._id %>" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+</body>
+</html>
